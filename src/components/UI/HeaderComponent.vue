@@ -1,8 +1,8 @@
 <template>
   <header>
-    <div class="container header-container">
+    <div class="container header">
       <img src="@/assets/images/SWORD_Health_logo.svg" alt="" />
-      <div class="info">
+      <div class="header__info">
         <p class="bold">Frontend Developer</p>
         <p class="italic">Challenge</p>
       </div>
@@ -18,14 +18,14 @@ header {
   position: fixed;
 }
 
-.header-container {
+.header {
   display: flex;
   justify-content: space-between;
   img {
     height: 2rem;
     margin: 24px 0;
   }
-  .info {
+  .header__info {
     margin: 24px 0;
     text-align: right;
   }
