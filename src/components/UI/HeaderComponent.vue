@@ -21,6 +21,7 @@ header {
 .header {
   display: flex;
   justify-content: space-between;
+  padding: 0 32px;
   img {
     height: 2rem;
     margin: 24px 0;

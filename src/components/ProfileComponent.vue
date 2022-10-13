@@ -1,14 +1,15 @@
 <template>
-  <div class="container aboutme">
-    <div class="aboutme__main">
+  <section class="container profile">
+    <div class="profile__main">
       <img src="@/assets/images/bruno_kern.jpeg" alt="Bruno's Picture" />
-      <div class="aboutme__main--info">
+      <div class="profile__main--info">
         <p class="bold">Bruno Kern</p>
-        <p>Location: Porto Alegre, RS, Brasil</p>
+        <p>Location: Porto Alegre, RS</p>
+        <p>Country: Brazil</p>
         <p>Occupation: Software Developer</p>
       </div>
     </div>
-    <div class="aboutme__description">
+    <div class="profile__description">
       <p>About me:</p>
       <p>
         I am a self-taught qualified professional full stack developer with five
@@ -17,24 +18,24 @@
         previous academic career.
       </p>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
-.aboutme {
+.profile {
   padding-top: $header-height;
   display: flex;
   justify-content: space-between;
-  padding: 128px 0;
+  padding: 128px 32px 48px;
 
-  .aboutme__main {
+  .profile__main {
     display: flex;
     img {
       border-radius: 50%;
       height: 200px;
       width: 200px;
     }
-    .aboutme__main--info {
+    .profile__main--info {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -46,13 +47,14 @@
       }
     }
   }
-  .aboutme__description {
+  .profile__description {
     text-align: right;
     width: 50%;
     padding: 64px 0 64px 48px;
 
     p {
       font-size: 1.2rem;
+      padding-bottom: 8px;
     }
   }
 }
