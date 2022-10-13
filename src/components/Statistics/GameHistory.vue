@@ -1,20 +1,20 @@
 <template>
-  <div class="game-history column-centered">
+  <div class="game-history">
     <h3>Game History</h3>
-    <div class="game-history__list centered">
-      <div class="game-history__item centered">
+    <div class="game-history__list">
+      <div class="game-history__item">
         <p>P1</p>
       </div>
-      <div class="game-history__item centered">
+      <div class="game-history__item">
         <p>P2</p>
       </div>
-      <div class="game-history__item centered">
+      <div class="game-history__item">
         <p>&nbsp;</p>
       </div>
-      <div class="game-history__item centered">
+      <div class="game-history__item">
         <p>&nbsp;</p>
       </div>
-      <div class="game-history__item centered">
+      <div class="game-history__item">
         <p>&nbsp;</p>
       </div>
     </div>
@@ -22,14 +22,20 @@
 </template>
 
 <style lang="scss" scoped>
-.game-history__item {
-  border: 1px solid $dark-gray;
-  margin: 16px 3px;
-  width: 1.4rem;
-  height: 1.4rem;
-}
+.game-history {
+  @include column-centered;
+  margin-top: 24px;
 
-.active {
-  background-color: $dark-gray;
+  .game-history__list {
+    @include centered;
+    .game-history__item {
+      @include centered;
+      border: 1px solid $dark-gray;
+      margin: 16px 3px;
+      width: 1.4rem;
+      height: 1.4rem;
+
+    }
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header id="header">
     <div class="container header">
       <img src="@/assets/images/SWORD_Health_logo.svg" alt="" />
       <div class="header__info">
@@ -17,6 +17,7 @@ header {
   width: 100vw;
   position: fixed;
 }
+/* TODO: header transparent in js */
 
 .header {
   display: flex;

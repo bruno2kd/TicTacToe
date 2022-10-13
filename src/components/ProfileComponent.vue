@@ -29,32 +29,47 @@
   padding: 128px 32px 48px;
 
   .profile__main {
-    display: flex;
+    @include centered;
     img {
       border-radius: 50%;
       height: 200px;
       width: 200px;
+      @media screen and (max-width: $mobile-break) {
+        align-items: center;
+      }
     }
     .profile__main--info {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       padding-left: 24px;
 
       p {
         font-size: 1.2rem;
         padding: 8px;
       }
+
+      @media screen and (max-width: $mobile-break) {
+        align-items: center;
+        padding: 0;
+      }
+    }
+    @media screen and (max-width: $mobile-break) {
+      @include column-centered;
+      margin: 0 auto;
     }
   }
   .profile__description {
     text-align: right;
     width: 50%;
-    padding: 64px 0 64px 48px;
+    padding: 64px 0 64px 32px;
 
     p {
       font-size: 1.2rem;
       padding-bottom: 8px;
+    }
+
+    @media screen and (max-width: $mobile-break) {
+      display: none;
     }
   }
 }

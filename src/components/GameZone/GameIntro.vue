@@ -1,5 +1,5 @@
 <template>
-  <div class="game-intro column-centered">
+  <div class="game-intro">
     <h2>Tic tac toe games</h2>
     <p>Welcome to the best game in the world.</p>
     <div class="game-intro__btn-group">
@@ -11,10 +11,8 @@
 
 <style lang="scss" scoped>
 .game-intro {
+  @include column-centered;
   padding: 64px 0;
-  /* 
-  TODO: botar essa cor no final
-  background-color: $light-gray; */
 
   .btn {
     padding: 12px 16px;
@@ -27,6 +25,10 @@
     color: #fff;
     cursor: pointer;
     border-radius: 8px 0 0 8px;
+
+    &:hover {
+      background-color: $primary-btn;
+    }
   }
   .inactive {
     background-color: #fff;

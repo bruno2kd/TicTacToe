@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="footer-list container centered">
+    <div class="footer-list container">
       <div class="footer-list__item">
         <p class="footer-list__item--title">About page</p>
         <p class="footer-list__item--subtitle">
@@ -18,9 +18,27 @@
       <div class="footer-list__item">
         <p class="footer-list__item--title">Stay in touch</p>
         <div class="footer-list__item--img-group">
-          <img src="@/assets/images/facebook.svg" alt="facebook logo" />
-          <img src="@/assets/images/twitter.svg" alt="twitter logo" />
-          <img src="@/assets/images/instagram.svg" alt="instagram logo" />
+          <a
+            href="https://www.facebook.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="@/assets/images/facebook.svg" alt="facebook logo" />
+          </a>
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="@/assets/images/twitter.svg" alt="twitter logo" />
+          </a>
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="@/assets/images/instagram.svg" alt="instagram logo" />
+          </a>
         </div>
         <div class="footer-list__item--input-group">
           <input type="text" placeholder="Subscribe to our games..." />
@@ -35,15 +53,25 @@
 
 <style lang="scss" scoped>
 footer {
-  background-color: rgb(235, 235, 235);
+  background-color: $light-gray;
   height: 250px;
   width: 100vw;
   margin: 0;
+  @media screen and (max-width: $mobile-break) {
+    height: 530px;
+  }
 }
 
 .footer-list {
+  @include centered;
   padding: 48px 32px;
   justify-content: space-between;
+  .footer-list__item {
+    @media screen and (max-width: $mobile-break) {
+      @include column-centered;
+      margin: 12px 0;
+    }
+  }
   .footer-list__item--title {
     font-size: 1.2rem;
     padding: 12px 0;
@@ -59,6 +87,7 @@ footer {
       height: 1.5rem;
       width: 1.5rem;
       margin-right: 8px;
+      cursor: pointer;
     }
   }
   .footer-list__item--input-group {
@@ -70,6 +99,7 @@ footer {
       padding: 0.2rem;
       height: 2rem;
       margin-right: 0;
+      outline: none;
     }
     button {
       border: 2px solid $dark-gray;
@@ -80,7 +110,14 @@ footer {
       img {
         height: 1rem;
       }
+      &:hover {
+        background-color: $primary-btn;
+        border-color: $primary-btn;
+      }
     }
+  }
+  @media screen and (max-width: $mobile-break) {
+    @include column-centered;
   }
 }
 </style>
