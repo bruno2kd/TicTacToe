@@ -10,6 +10,7 @@ const PLAYER_TWO_O = 2;
 
 const cells = ref(3); // TODO: change this
 const loading = ref(false);
+const popUpMessage = ref("");
 const board = ref([null, null, null, null, null, null, null, null, null]);
 const popUpGameWon = ref(false);
 const winnerLine = ref([]);
@@ -62,6 +63,11 @@ const makeMove = (i) => {
   if (winner) {
     winnerLine.value = winner.line;
     gameStore.gameWon(winner);
+    if (winner.winner > 0) {
+      popUpMessage.value = `Player ${winner.winner} wins!`;
+    } else {
+      popUpMessage.value = "DRAW!";
+    }
     setTimeout(() => {
       popUpGameWon.value = true;
     }, 500);
@@ -98,7 +104,7 @@ onMounted(() => {
   </div>
   <Transition>
     <div v-if="popUpGameWon" class="game-area__pop-up">
-      <p>Player 1 Wins!</p>
+      <p>{{ popUpMessage }}</p>
 
       <button @click="nextGame" class="game-area__pop-up--btn btn">
         Next Game

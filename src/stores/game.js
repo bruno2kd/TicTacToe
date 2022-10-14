@@ -4,12 +4,38 @@ import { defineStore } from "pinia";
 export const useGameStore = defineStore("game", () => {
   const playerStartedGame = ref(null);
   const turn = ref(null);
-
-  const matchesPlayed = ref(0);
-
+  const matchesPlayed = ref(0); // TODO: no need gameHistory.length is enough
   const gameHistory = ref([]);
+  const matchTime = ref("00:00:00");
+  const totalTime = ref("00:00:00");
 
-  // const doubleCount = computed(() => count.value * 2);
+  // TODO: need to account for draws
+  const winsP1 = computed(() => {
+    let count = 0;
+    gameHistory.value.forEach((winner) => {
+      if (winner === "P1") {
+        count++;
+      }
+    });
+
+    if (gameHistory.value.length > 0) {
+      const percentage = Math.round((count * 100) / gameHistory.value.length);
+
+      return percentage;
+    } else {
+      return 0;
+    }
+  });
+
+  // mutation
+  const updateMatchTime = (newTime) => {
+    matchTime.value = newTime;
+  };
+
+  const updateTotalTime = (newTime) => {
+    totalTime.value = newTime;
+  };
+
   const nextTurn = () => {
     turn.value = turn.value === 1 ? 2 : 1;
   };
@@ -44,6 +70,11 @@ export const useGameStore = defineStore("game", () => {
     turn,
     matchesPlayed,
     gameHistory,
+    matchTime,
+    totalTime,
+    winsP1,
+    updateMatchTime,
+    updateTotalTime,
     pseudoRandomCoinFlip,
     nextTurn,
     nextGame,

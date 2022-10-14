@@ -8,7 +8,7 @@ const gameStore = useGameStore();
     <h3>Game History</h3>
     <div class="game-history__list">
       <div class="game-history__item" v-for="i in 5" :key="i">
-        <p>{{gameStore.gameHistory[i-1]}}</p>
+        <p>{{ gameStore.gameHistory[i - 1] }}</p>
       </div>
     </div>
   </div>

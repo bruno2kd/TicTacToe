@@ -1,7 +1,17 @@
+<script setup>
+import StopWatch from "@/components/UI/StopWatch.vue";
+import { useGameStore } from "@/stores/game";
+const gameStore = useGameStore();
+
+const updateTime = (newTime) => {
+  gameStore.updateTotalTime(newTime);
+};
+</script>
+
 <template>
   <div class="total-time">
     <h3>Total time</h3>
-    <p>00:44:12</p>
+    <StopWatch :time="gameStore.totalTime" @updateTime="updateTime" />
   </div>
 </template>
 

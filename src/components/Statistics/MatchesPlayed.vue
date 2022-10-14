@@ -11,9 +11,8 @@ const gameStore = useGameStore();
         v-for="i in 5"
         :key="i"
         class="matches-played__list--circle"
-        :class="{active: (i <= gameStore.matchesPlayed)}"
-      >
-      </div>
+        :class="{ active: i <= gameStore.matchesPlayed }"
+      ></div>
     </div>
   </div>
 </template>
