@@ -1,12 +1,19 @@
+<script setup>
+import { useGameStore } from "@/stores/game";
+const gameStore = useGameStore();
+</script>
+
 <template>
   <div class="matches-played">
     <h3>Matches played</h3>
     <div class="matches-played__list">
-      <div class="matches-played__list--circle active">&nbsp;</div>
-      <div class="matches-played__list--circle">&nbsp;</div>
-      <div class="matches-played__list--circle">&nbsp;</div>
-      <div class="matches-played__list--circle">&nbsp;</div>
-      <div class="matches-played__list--circle">&nbsp;</div>
+      <div
+        v-for="i in 5"
+        :key="i"
+        class="matches-played__list--circle"
+        :class="{active: (i <= gameStore.matchesPlayed)}"
+      >
+      </div>
     </div>
   </div>
 </template>

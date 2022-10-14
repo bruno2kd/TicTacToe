@@ -2,6 +2,7 @@
 import GameIntro from "@/components/GameZone/GameIntro.vue";
 import GameClock from "@/components/GameZone/GameClock.vue";
 import PlayerComponent from "@/components/GameZone/PlayerComponent.vue";
+import GameBoard from "@/components/GameZone/GameBoard.vue";
 </script>
 
 <template>
@@ -12,7 +13,9 @@ import PlayerComponent from "@/components/GameZone/PlayerComponent.vue";
         <div class="game-zone__player--desktop">
           <PlayerComponent />
         </div>
-        <div class="game-zone__game-board">box2</div>
+        <div class="game-zone__game-board">
+          <GameBoard />
+        </div>
         <div class="game-zone__player--desktop">
           <PlayerComponent />
         </div>
@@ -52,6 +55,7 @@ section {
     text-align: center;
     border: 1px solid black;
     margin: 0 16px;
+    position: relative;
   }
   .game-zone__game-board:after {
     content: "";

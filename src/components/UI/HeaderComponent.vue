@@ -16,6 +16,7 @@ header {
   height: $header-height;
   width: 100vw;
   position: fixed;
+  z-index: 1;
 }
 /* TODO: header transparent in js */
 
