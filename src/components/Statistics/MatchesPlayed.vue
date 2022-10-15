@@ -11,7 +11,7 @@ const gameStore = useGameStore();
         v-for="i in 5"
         :key="i"
         class="matches-played__list--circle"
-        :class="{ active: i <= gameStore.matchesPlayed }"
+        :class="{ active: i <= gameStore.gameHistory.length }"
       ></div>
     </div>
   </div>

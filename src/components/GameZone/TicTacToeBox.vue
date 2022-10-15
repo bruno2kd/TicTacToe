@@ -28,7 +28,7 @@ const isWinnerBox = computed(() => {
           :alt="props.played"
         />
         <img
-          v-else=""
+          v-else
           :src="`/src/assets/images/${props.played}_winner.svg`"
           :alt="props.played"
         />

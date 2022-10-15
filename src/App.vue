@@ -1,17 +1,17 @@
 <script setup>
-import HeaderComponent from "@/components/UI/HeaderComponent.vue";
+import AppHeader from "@/components/UI/AppHeader.vue";
 import ProfileComponent from "@/components/ProfileComponent.vue";
-import GameZone from "@/components/GameZone/Index.vue";
-import StatisticsComponent from "@/components/Statistics/Index.vue";
-import FooterComponent from "@/components/UI/FooterComponent.vue";
+import GameZone from "@/components/GameZone/GameZoneMain.vue";
+import StatisticsComponent from "@/components/Statistics/StatisticsMain.vue";
+import AppFooter from "@/components/UI/AppFooter.vue";
 </script>
 
 <template>
-  <HeaderComponent />
+  <AppHeader />
   <ProfileComponent />
   <GameZone />
   <StatisticsComponent />
-  <FooterComponent />
+  <AppFooter />
 </template>
 
 <style lang="scss" scoped></style>

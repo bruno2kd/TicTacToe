@@ -1,5 +1,5 @@
 <script setup>
-import PercentageStats from "@/components/UI/PercentageStats.vue";
+import PercentageStats from "@/components/Statistics/PercentageStats.vue";
 
 const props = defineProps({
   player: {
@@ -8,11 +8,11 @@ const props = defineProps({
   },
   winsPercentage: {
     type: Number,
-    required: true,
+    default: 0,
   },
-  gameStarted: {
-    type: Boolean,
-    required: true,
+  lossPercentage: {
+    type: Number,
+    default: 0,
   },
 });
 </script>
@@ -21,15 +21,8 @@ const props = defineProps({
   <div class="player-statistics">
     <p class="player-statistics--title">Player {{ props.player }}</p>
     <div class="centered">
-      <!-- TODO: change it to component -->
-      <PercentageStats
-        :percentage="gameStarted ? winsPercentage : 0"
-        subtitle="W"
-      />
-      <PercentageStats
-        :percentage="gameStarted ? 100 - winsPercentage : 0"
-        subtitle="L"
-      />
+      <PercentageStats :percentage="winsPercentage" subtitle="W" />
+      <PercentageStats :percentage="lossPercentage" subtitle="L" />
     </div>
   </div>
 </template>

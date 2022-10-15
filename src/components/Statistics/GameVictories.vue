@@ -1,5 +1,5 @@
 <script setup>
-import PlayerStatistics from "@/components/UI/PlayerStatistics.vue";
+import PlayerStatistics from "@/components/Statistics/PlayerStatistics.vue";
 
 import { useGameStore } from "@/stores/game";
 const gameStore = useGameStore();
@@ -11,13 +11,13 @@ const gameStore = useGameStore();
     <div class="centered">
       <PlayerStatistics
         :player="1"
-        :winsPercentage="gameStore.winsP1"
-        :gameStarted="gameStore.gameHistory.length > 0"
+        :winsPercentage="gameStore.winsPercentage.p1WinsPercentage"
+        :lossPercentage="gameStore.winsPercentage.p2WinsPercentage"
       />
       <PlayerStatistics
         :player="2"
-        :winsPercentage="100 - gameStore.winsP1"
-        :gameStarted="gameStore.gameHistory.length > 0"
+        :winsPercentage="gameStore.winsPercentage.p2WinsPercentage"
+        :lossPercentage="gameStore.winsPercentage.p1WinsPercentage"
       />
     </div>
   </div>

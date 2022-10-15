@@ -1,15 +1,19 @@
 <script setup>
 import TicTacToeBox from "@/components/GameZone/TicTacToeBox.vue";
 import { ref, onMounted } from "vue";
-
+import { useTimerStore } from "@/stores/timer";
 import { useGameStore } from "@/stores/game";
+
 const gameStore = useGameStore();
+const timerStore = useTimerStore();
 
 const PLAYER_ONE_X = 1;
 const PLAYER_TWO_O = 2;
 
 const cells = ref(3); // TODO: change this
 const loading = ref(false);
+const gameSeriesEnded = ref(false);
+const gameSeriesEndedMessage = ref("");
 const popUpMessage = ref("");
 const board = ref([null, null, null, null, null, null, null, null, null]);
 const popUpGameWon = ref(false);
@@ -56,9 +60,17 @@ const calculateWinner = (squares) => {
 
 const makeMove = (i) => {
   if (loading.value) return;
+  if (gameStore.matchPlaysHistory.length === 0) {
+    // check if first move of match
+    timerStore.start("matchTimer");
+    if (gameStore.gameHistory.length === 0) {
+      // check if first move of series
+      timerStore.start("totalTimer");
+    }
+  }
+
   loading.value = true;
   board.value[i] = gameStore.turn === 1 ? PLAYER_ONE_X : PLAYER_TWO_O;
-  gameStore.nextTurn();
   const winner = calculateWinner(board.value);
   if (winner) {
     winnerLine.value = winner.line;
@@ -68,10 +80,25 @@ const makeMove = (i) => {
     } else {
       popUpMessage.value = "DRAW!";
     }
+
+    const seriesResults = gameStore.checkSeriesResults();
+
+    if (seriesResults !== null) {
+      // do something
+      timerStore.stop("totalTimer");
+      gameSeriesEnded.value = true;
+      if (seriesResults === 0) {
+        gameSeriesEndedMessage.value = "TIED SERIES!";
+      } else {
+        gameSeriesEndedMessage.value = `PLAYER ${seriesResults} WON THE SERIES!`;
+      }
+    }
+
     setTimeout(() => {
       popUpGameWon.value = true;
     }, 500);
   } else {
+    gameStore.nextTurn();
     loading.value = false;
   }
 };
@@ -82,6 +109,12 @@ const nextGame = () => {
   popUpGameWon.value = false;
   loading.value = false;
   gameStore.nextGame();
+};
+
+const startNewSeries = () => {
+  gameSeriesEnded.value = false;
+  gameStore.startNewSeries();
+  nextGame();
 };
 
 onMounted(() => {
@@ -104,11 +137,21 @@ onMounted(() => {
   </div>
   <Transition>
     <div v-if="popUpGameWon" class="game-area__pop-up">
-      <p>{{ popUpMessage }}</p>
+      <div v-if="!gameSeriesEnded" class="game-area__pop-up--match-message">
+        <p>{{ popUpMessage }}</p>
 
-      <button @click="nextGame" class="game-area__pop-up--btn btn">
-        Next Game
-      </button>
+        <button @click="nextGame" class="game-area__pop-up--btn btn">
+          Next Game
+        </button>
+      </div>
+      <div v-if="gameSeriesEnded" class="game-area__pop-up--series-message">
+        <p>
+          {{ gameSeriesEndedMessage }}
+        </p>
+        <button @click="startNewSeries" class="game-area__pop-up--btn btn">
+          New Series
+        </button>
+      </div>
     </div>
   </Transition>
 </template>
@@ -134,9 +177,22 @@ onMounted(() => {
   width: 100%;
   height: 100%;
 
-  p {
-    color: #fff;
-    font-size: 2.5rem;
+  .game-area__pop-up--match-message {
+    p {
+      color: #fff;
+      font-size: 2.5rem;
+    }
+  }
+  .game-area__pop-up--series-message {
+    p {
+      color: $green;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: $yellow;
+    }
   }
 
   .game-area__pop-up--btn {

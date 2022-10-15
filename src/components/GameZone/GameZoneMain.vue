@@ -3,6 +3,9 @@ import GameIntro from "@/components/GameZone/GameIntro.vue";
 import GameClock from "@/components/GameZone/GameClock.vue";
 import PlayerComponent from "@/components/GameZone/PlayerComponent.vue";
 import GameBoard from "@/components/GameZone/GameBoard.vue";
+
+import { useGameStore } from "@/stores/game";
+const gameStore = useGameStore();
 </script>
 
 <template>
@@ -11,23 +14,39 @@ import GameBoard from "@/components/GameZone/GameBoard.vue";
       <GameIntro />
       <div class="centered">
         <div class="game-zone__player--desktop">
-          <PlayerComponent />
+          <PlayerComponent
+            :player="1"
+            :currentTurn="gameStore.turn === 1"
+            :turnCount="gameStore.playerOnePlays"
+          />
         </div>
         <div class="game-zone__game-board">
           <GameBoard />
         </div>
         <div class="game-zone__player--desktop">
-          <PlayerComponent />
+          <PlayerComponent
+            :player="2"
+            :currentTurn="gameStore.turn === 2"
+            :turnCount="gameStore.playerTwoPlays"
+          />
         </div>
       </div>
 
       <div class="game-zone__clock">
         <div class="game-zone__player--mobile">
-          <PlayerComponent />
+          <PlayerComponent
+            :player="1"
+            :currentTurn="gameStore.turn === 1"
+            :turnCount="gameStore.playerOnePlays"
+          />
         </div>
         <GameClock />
         <div class="game-zone__player--mobile">
-          <PlayerComponent />
+          <PlayerComponent
+            :player="2"
+            :currentTurn="gameStore.turn === 2"
+            :turnCount="gameStore.playerTwoPlays"
+          />
         </div>
       </div>
     </div>
@@ -64,8 +83,9 @@ section {
   }
 
   .game-zone__clock {
-    @include centered;
+    display: flex;
     justify-content: space-around;
+    align-items: start;
     margin: 32px;
     .game-zone__player--mobile {
       display: none;
