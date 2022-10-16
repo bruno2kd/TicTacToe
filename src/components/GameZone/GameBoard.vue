@@ -87,7 +87,7 @@ const makeMove = (i) => {
     if (seriesResults !== null) {
       // do something
       timerStore.stop("totalTimer");
-      gameStore.updateSeriesResults(seriesResults)
+      gameStore.updateSeriesResults(seriesResults);
       gameSeriesEnded.value = true;
       if (seriesResults === 0) {
         gameSeriesEndedMessage.value = "TIED SERIES!";

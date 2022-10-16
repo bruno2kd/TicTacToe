@@ -8,11 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button
-    class="btn"
-    :class="props.class"
-    @click="$emit('onClick')"
-  >
+  <button class="btn" :class="props.class" @click="$emit('onClick')">
     <slot></slot>
   </button>
 </template>
