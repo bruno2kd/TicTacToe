@@ -1,4 +1,5 @@
 <script setup>
+import { getMatrixPosition } from "@/assets/helpers";
 import { computed } from "vue";
 const props = defineProps({
   index: {
@@ -11,10 +12,21 @@ const props = defineProps({
   winnerLine: {
     type: Array,
   },
+  cells: {
+    type: Number,
+    required: true
+  },
 });
 
 const isWinnerBox = computed(() => {
-  return props.winnerLine.includes(props.index);
+  const d = props.cells;
+  const matrixPosition = getMatrixPosition(props.index, d);
+  let isWinning = false;
+  for (let line of props.winnerLine) {
+    isWinning = line[0] === matrixPosition[0] && line[1] === matrixPosition[1];
+    if (isWinning) break;
+  }
+  return isWinning;
 });
 </script>
 

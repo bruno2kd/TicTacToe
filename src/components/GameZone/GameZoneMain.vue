@@ -3,9 +3,12 @@ import GameIntro from "@/components/GameZone/GameIntro.vue";
 import GameClock from "@/components/GameZone/GameClock.vue";
 import PlayerComponent from "@/components/GameZone/PlayerComponent.vue";
 import GameBoard from "@/components/GameZone/GameBoard.vue";
+import InputRange from "@/components/GameZone/InputRange.vue";
 
 import { useGameStore } from "@/stores/game";
+import { useBoardStore } from "@/stores/board";
 const gameStore = useGameStore();
+const boardStore = useBoardStore();
 </script>
 
 <template>
@@ -31,6 +34,11 @@ const gameStore = useGameStore();
           />
         </div>
       </div>
+
+      <InputRange
+        :rangeInput="boardStore.cells"
+        @updateInput="boardStore.updateCells"
+      />
 
       <div class="game-zone__clock">
         <div class="game-zone__player--mobile">

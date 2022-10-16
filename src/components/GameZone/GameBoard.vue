@@ -1,66 +1,89 @@
 <script setup>
+import { getMatrixPosition, createMatrix } from "@/assets/helpers";
 import TicTacToeBox from "@/components/GameZone/TicTacToeBox.vue";
 import { ref, onMounted } from "vue";
 import { useTimerStore } from "@/stores/timer";
 import { useGameStore } from "@/stores/game";
+import { useBoardStore } from "@/stores/board";
 
 const gameStore = useGameStore();
 const timerStore = useTimerStore();
+const boardStore = useBoardStore();
 
 const PLAYER_ONE_X = 1;
 const PLAYER_TWO_O = 2;
 
-const cells = ref(3); // TODO: change this
 const loading = ref(false);
 const gameSeriesEnded = ref(false);
 const gameSeriesEndedMessage = ref("");
 const popUpMessage = ref("");
-const board = ref([null, null, null, null, null, null, null, null, null]);
+
 const popUpMatchWon = ref(false);
 const winnerLine = ref([]);
 
-// TODO: programatticaly
-const createCells = (x) => {
-  return [...Array(x).keys()].map(() => null);
-};
+const calculateWinner = (board, row, column) => {
+  const cellsNum = boardStore.cells;
+  // winning row
+  let currentPlayer = board[row][column];
+  let isRowWinning = true;
+  let isColumnWinning = true;
+  let isDiagonalOneWinning = true;
+  let IsDiagonalTwoWinning = true;
+  const rowArr = [];
+  const columnArr = [];
+  const diagonalOneArr = [];
+  const diagonalTwoArr = [];
+  for (let i = 0; i < cellsNum; i++) {
+    isRowWinning = isRowWinning
+      ? board[row][i] === currentPlayer
+      : isRowWinning;
+    rowArr.push([row, i]);
+    isColumnWinning = isColumnWinning
+      ? board[i][column] === currentPlayer
+      : isColumnWinning;
+    columnArr.push([i, column]);
+    isDiagonalOneWinning = isDiagonalOneWinning
+      ? board[i][i] === currentPlayer
+      : isDiagonalOneWinning;
+    diagonalOneArr.push([i, i]);
+    IsDiagonalTwoWinning = IsDiagonalTwoWinning
+      ? board[i][cellsNum - (i + 1)] === currentPlayer
+      : IsDiagonalTwoWinning;
+    diagonalTwoArr.push([i, cellsNum - (i + 1)]);
+  }
 
-const calculateWinner = (squares) => {
-  const possibleWinnerLines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
-  for (let i = 0; i < possibleWinnerLines.length; i++) {
-    const [a, b, c] = possibleWinnerLines[i];
-
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+  let winningLine;
+  if (isRowWinning) {
+    winningLine = rowArr;
+  } else if (isColumnWinning) {
+    winningLine = columnArr;
+  } else if (isDiagonalOneWinning) {
+    winningLine = diagonalOneArr;
+  } else if (IsDiagonalTwoWinning) {
+    winningLine = diagonalTwoArr;
+  } else {
+    // draw handling here
+    if (gameStore.matchPlaysHistory.length === boardStore.cells * boardStore.cells - 1) {
       return {
-        winner: squares[a],
-        line: [a, b, c],
+        winner: 0,
+        line: [],
       };
     }
+    // no winner handling
+    return null;
   }
 
-  if (!squares.includes(null)) {
-    // draw handling
-    return {
-      winner: 0,
-      line: [],
-    };
-  }
-
-  return null;
+  // winning return here
+  return {
+    winner: currentPlayer,
+    line: winningLine,
+  };
 };
 
 const makeMove = (i) => {
+  const matrixPosition = getMatrixPosition(i, boardStore.cells);
   if (loading.value) return;
-  if (board.value[i]) return; // check if box is marked
+  if (boardStore.board[matrixPosition[0]][matrixPosition[1]]) return; // check if box is marked
   if (gameStore.matchPlaysHistory.length === 0) {
     // check if first move of match
     timerStore.start("matchTimer");
@@ -69,10 +92,11 @@ const makeMove = (i) => {
       timerStore.start("totalTimer");
     }
   }
-
   loading.value = true;
-  board.value[i] = gameStore.turn === 1 ? PLAYER_ONE_X : PLAYER_TWO_O;
-  const winner = calculateWinner(board.value);
+
+  const currentPlayer = gameStore.turn === 1 ? PLAYER_ONE_X : PLAYER_TWO_O;
+  boardStore.board[matrixPosition[0]][matrixPosition[1]] = currentPlayer;
+  const winner = calculateWinner(boardStore.board, ...matrixPosition);
   if (winner) {
     winnerLine.value = winner.line;
     gameStore.matchWon(winner);
@@ -106,7 +130,7 @@ const makeMove = (i) => {
 };
 
 const nextMatch = () => {
-  board.value = [null, null, null, null, null, null, null, null, null];
+  boardStore.board = createMatrix(boardStore.cells);
   winnerLine.value = [];
   popUpMatchWon.value = false;
   loading.value = false;
@@ -126,13 +150,14 @@ onMounted(() => {
 
 <template>
   <div class="game-area">
-    <div class="game-board">
+    <div id="game-board">
       <TicTacToeBox
         :key="i"
-        v-for="(played, i) in board"
+        v-for="(played, i) in boardStore.board.flat()"
         :index="i"
         :played="played"
         :winnerLine="winnerLine"
+        :cells="boardStore.cells"
         @click="makeMove(i)"
       />
     </div>
@@ -167,8 +192,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
 
-  .game-board {
-    /* padding: 12px; */
+  #game-board {
     width: 100%;
     height: 100%;
     display: grid;
