@@ -7,54 +7,54 @@ export const useGameStore = defineStore("game", () => {
   const matchPlaysHistory = ref([]);
   const turn = ref(null);
   const gameHistory = ref([]);
+  const seriesHistory = ref([]);
+  const p1WinsPercentage = ref(0);
+  const p2WinsPercentage = ref(0);
 
-  const winsPercentage = computed(() => {
+  const matchesWonByEachPlayer = computed(() => {
+    const scores = gameHistory.value.reduce(
+      (acc, x) => {
+        if (x === "P1") {
+          acc.p1++;
+        } else if (x === "P2") {
+          acc.p2++;
+        }
+        return acc;
+      },
+      { p1: 0, p2: 0 }
+    );
+    return scores;
+  });
+
+  const winsPercentage = () => {
     let p1Wins = 0;
     let p2Wins = 0;
-    gameHistory.value.forEach((winner) => {
-      if (winner === "P1") {
+    seriesHistory.value.forEach((winner) => {
+      if (winner === 1) {
         p1Wins++;
       }
-      if (winner === "P2") {
+      if (winner === 2) {
         p2Wins++;
       }
     });
 
-    let p1WinsPercentage = 0;
-    let p2WinsPercentage = 0;
-    if (gameHistory.value.length > 0) {
-      p1WinsPercentage = Math.round((p1Wins * 100) / gameHistory.value.length);
-      p2WinsPercentage = Math.round((p2Wins * 100) / gameHistory.value.length);
-    }
-    return {
-      p1WinsPercentage,
-      p2WinsPercentage,
-    };
-  });
-
-  const playerOnePlays = computed(() => {
-    return matchPlaysHistory.value.reduce(
-      (acc, x) => (x === 1 ? acc + 1 : acc),
-      0
+    p1WinsPercentage.value = Math.round(
+      (p1Wins * 100) / seriesHistory.value.length
     );
-  });
-
-  const playerTwoPlays = computed(() => {
-    return matchPlaysHistory.value.reduce(
-      (acc, x) => (x === 2 ? acc + 1 : acc),
-      0
+    p2WinsPercentage.value = Math.round(
+      (p2Wins * 100) / seriesHistory.value.length
     );
-  });
+  };
 
   const nextTurn = () => {
     matchPlaysHistory.value.push(turn.value);
     turn.value = turn.value === 1 ? 2 : 1;
   };
 
-  const nextGame = () => {
+  const nextMatch = () => {
     // player that started last game, shouldn't start again
-    const startNextGame = matchPlaysHistory.value[0] === 1 ? 2 : 1;
-    turn.value = startNextGame;
+    const startNextMatch = matchPlaysHistory.value[0] === 1 ? 2 : 1;
+    turn.value = startNextMatch;
     matchPlaysHistory.value = [];
     timerStore.reset("matchTimer");
   };
@@ -68,7 +68,7 @@ export const useGameStore = defineStore("game", () => {
     }
   };
 
-  const gameWon = (winner) => {
+  const matchWon = (winner) => {
     timerStore.stop("matchTimer");
     matchPlaysHistory.value.push(turn.value);
     if (winner.winner > 0) {
@@ -114,7 +114,7 @@ export const useGameStore = defineStore("game", () => {
     }
   };
 
-  const startNewSeries = () => {
+  const startNewGameSeries = () => {
     matchPlaysHistory.value = [];
     turn.value = null;
     gameHistory.value = [];
@@ -122,18 +122,25 @@ export const useGameStore = defineStore("game", () => {
     timerStore.reset("totalTimer");
   };
 
+  const updateSeriesResults = (seriesResults) => {
+    seriesHistory.value.push(seriesResults);
+    winsPercentage();
+  };
+
   return {
     turn,
     matchPlaysHistory,
     gameHistory,
+    p1WinsPercentage,
+    p2WinsPercentage,
+    matchesWonByEachPlayer,
     winsPercentage,
-    playerOnePlays,
-    playerTwoPlays,
     pseudoRandomCoinFlip,
     nextTurn,
-    nextGame,
-    gameWon,
+    nextMatch,
+    matchWon,
     checkSeriesResults,
-    startNewSeries,
+    startNewGameSeries,
+    updateSeriesResults,
   };
 });

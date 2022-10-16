@@ -16,7 +16,7 @@ const gameSeriesEnded = ref(false);
 const gameSeriesEndedMessage = ref("");
 const popUpMessage = ref("");
 const board = ref([null, null, null, null, null, null, null, null, null]);
-const popUpGameWon = ref(false);
+const popUpMatchWon = ref(false);
 const winnerLine = ref([]);
 
 // TODO: programatticaly
@@ -60,6 +60,7 @@ const calculateWinner = (squares) => {
 
 const makeMove = (i) => {
   if (loading.value) return;
+  if (board.value[i]) return; // check if box is marked
   if (gameStore.matchPlaysHistory.length === 0) {
     // check if first move of match
     timerStore.start("matchTimer");
@@ -74,7 +75,7 @@ const makeMove = (i) => {
   const winner = calculateWinner(board.value);
   if (winner) {
     winnerLine.value = winner.line;
-    gameStore.gameWon(winner);
+    gameStore.matchWon(winner);
     if (winner.winner > 0) {
       popUpMessage.value = `Player ${winner.winner} wins!`;
     } else {
@@ -86,6 +87,7 @@ const makeMove = (i) => {
     if (seriesResults !== null) {
       // do something
       timerStore.stop("totalTimer");
+      gameStore.updateSeriesResults(seriesResults)
       gameSeriesEnded.value = true;
       if (seriesResults === 0) {
         gameSeriesEndedMessage.value = "TIED SERIES!";
@@ -95,7 +97,7 @@ const makeMove = (i) => {
     }
 
     setTimeout(() => {
-      popUpGameWon.value = true;
+      popUpMatchWon.value = true;
     }, 500);
   } else {
     gameStore.nextTurn();
@@ -103,18 +105,18 @@ const makeMove = (i) => {
   }
 };
 
-const nextGame = () => {
+const nextMatch = () => {
   board.value = [null, null, null, null, null, null, null, null, null];
   winnerLine.value = [];
-  popUpGameWon.value = false;
+  popUpMatchWon.value = false;
   loading.value = false;
-  gameStore.nextGame();
+  gameStore.nextMatch();
 };
 
-const startNewSeries = () => {
+const startNewGameSeries = () => {
   gameSeriesEnded.value = false;
-  gameStore.startNewSeries();
-  nextGame();
+  gameStore.startNewGameSeries();
+  nextMatch();
 };
 
 onMounted(() => {
@@ -136,21 +138,24 @@ onMounted(() => {
     </div>
   </div>
   <Transition>
-    <div v-if="popUpGameWon" class="game-area__pop-up">
+    <div v-if="popUpMatchWon" class="game-area__pop-up">
       <div v-if="!gameSeriesEnded" class="game-area__pop-up--match-message">
         <p>{{ popUpMessage }}</p>
 
-        <button @click="nextGame" class="game-area__pop-up--btn btn">
-          Next Game
-        </button>
+        <ButtonComponent @onClick="nextMatch" class="game-area__pop-up--btn">
+          Next Match
+        </ButtonComponent>
       </div>
       <div v-if="gameSeriesEnded" class="game-area__pop-up--series-message">
         <p>
           {{ gameSeriesEndedMessage }}
         </p>
-        <button @click="startNewSeries" class="game-area__pop-up--btn btn">
+        <ButtonComponent
+          @onClick="startNewGameSeries"
+          class="game-area__pop-up--btn"
+        >
           New Series
-        </button>
+        </ButtonComponent>
       </div>
     </div>
   </Transition>

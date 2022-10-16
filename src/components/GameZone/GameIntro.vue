@@ -3,8 +3,8 @@
     <h2>Tic tac toe games</h2>
     <p>Welcome to the best game in the world.</p>
     <div class="game-intro__btn-group">
-      <button class="btn active">Tic tac toe</button>
-      <button class="btn inactive" disabled>Connect Four</button>
+      <ButtonComponent class="active">Tic Tac Toe</ButtonComponent>
+      <ButtonComponent class="inactive" disabled>Connect Four</ButtonComponent>
     </div>
   </div>
 </template>

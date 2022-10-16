@@ -17,7 +17,7 @@ const gameStore = useGameStore();
           <PlayerComponent
             :player="1"
             :currentTurn="gameStore.turn === 1"
-            :turnCount="gameStore.playerOnePlays"
+            :turnCount="gameStore.matchesWonByEachPlayer.p1"
           />
         </div>
         <div class="game-zone__game-board">
@@ -27,7 +27,7 @@ const gameStore = useGameStore();
           <PlayerComponent
             :player="2"
             :currentTurn="gameStore.turn === 2"
-            :turnCount="gameStore.playerTwoPlays"
+            :turnCount="gameStore.matchesWonByEachPlayer.p2"
           />
         </div>
       </div>
@@ -37,7 +37,7 @@ const gameStore = useGameStore();
           <PlayerComponent
             :player="1"
             :currentTurn="gameStore.turn === 1"
-            :turnCount="gameStore.playerOnePlays"
+            :turnCount="gameStore.matchesWonByEachPlayer.p1"
           />
         </div>
         <GameClock />
@@ -45,7 +45,7 @@ const gameStore = useGameStore();
           <PlayerComponent
             :player="2"
             :currentTurn="gameStore.turn === 2"
-            :turnCount="gameStore.playerTwoPlays"
+            :turnCount="gameStore.matchesWonByEachPlayer.p2"
           />
         </div>
       </div>
@@ -56,7 +56,7 @@ const gameStore = useGameStore();
 <style lang="scss" scoped>
 section {
   background-color: $light-gray;
-  width: 100vw;
+  width: 100%;
 }
 
 .game-zone {

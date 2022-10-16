@@ -55,7 +55,7 @@
 footer {
   background-color: $light-gray;
   height: 250px;
-  width: 100vw;
+  width: 100%;
   margin: 0;
   @media screen and (max-width: $mobile-break) {
     height: 530px;

@@ -11,13 +11,13 @@ const gameStore = useGameStore();
     <div class="centered">
       <PlayerStatistics
         :player="1"
-        :winsPercentage="gameStore.winsPercentage.p1WinsPercentage"
-        :lossPercentage="gameStore.winsPercentage.p2WinsPercentage"
+        :winsPercentage="gameStore.p1WinsPercentage"
+        :lossPercentage="gameStore.p2WinsPercentage"
       />
       <PlayerStatistics
         :player="2"
-        :winsPercentage="gameStore.winsPercentage.p2WinsPercentage"
-        :lossPercentage="gameStore.winsPercentage.p1WinsPercentage"
+        :winsPercentage="gameStore.p2WinsPercentage"
+        :lossPercentage="gameStore.p1WinsPercentage"
       />
     </div>
   </div>
