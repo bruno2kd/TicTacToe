@@ -14,7 +14,7 @@ const props = defineProps({
   },
   cells: {
     type: Number,
-    required: true
+    required: true,
   },
 });
 

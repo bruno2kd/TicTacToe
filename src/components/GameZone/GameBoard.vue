@@ -21,65 +21,6 @@ const popUpMessage = ref("");
 const popUpMatchWon = ref(false);
 const winnerLine = ref([]);
 
-const calculateWinner = (board, row, column) => {
-  const cellsNum = boardStore.cells;
-  // winning row
-  let currentPlayer = board[row][column];
-  let isRowWinning = true;
-  let isColumnWinning = true;
-  let isDiagonalOneWinning = true;
-  let IsDiagonalTwoWinning = true;
-  const rowArr = [];
-  const columnArr = [];
-  const diagonalOneArr = [];
-  const diagonalTwoArr = [];
-  for (let i = 0; i < cellsNum; i++) {
-    isRowWinning = isRowWinning
-      ? board[row][i] === currentPlayer
-      : isRowWinning;
-    rowArr.push([row, i]);
-    isColumnWinning = isColumnWinning
-      ? board[i][column] === currentPlayer
-      : isColumnWinning;
-    columnArr.push([i, column]);
-    isDiagonalOneWinning = isDiagonalOneWinning
-      ? board[i][i] === currentPlayer
-      : isDiagonalOneWinning;
-    diagonalOneArr.push([i, i]);
-    IsDiagonalTwoWinning = IsDiagonalTwoWinning
-      ? board[i][cellsNum - (i + 1)] === currentPlayer
-      : IsDiagonalTwoWinning;
-    diagonalTwoArr.push([i, cellsNum - (i + 1)]);
-  }
-
-  let winningLine;
-  if (isRowWinning) {
-    winningLine = rowArr;
-  } else if (isColumnWinning) {
-    winningLine = columnArr;
-  } else if (isDiagonalOneWinning) {
-    winningLine = diagonalOneArr;
-  } else if (IsDiagonalTwoWinning) {
-    winningLine = diagonalTwoArr;
-  } else {
-    // draw handling here
-    if (gameStore.matchPlaysHistory.length === boardStore.cells * boardStore.cells - 1) {
-      return {
-        winner: 0,
-        line: [],
-      };
-    }
-    // no winner handling
-    return null;
-  }
-
-  // winning return here
-  return {
-    winner: currentPlayer,
-    line: winningLine,
-  };
-};
-
 const makeMove = (i) => {
   const matrixPosition = getMatrixPosition(i, boardStore.cells);
   if (loading.value) return;
@@ -96,7 +37,10 @@ const makeMove = (i) => {
 
   const currentPlayer = gameStore.turn === 1 ? PLAYER_ONE_X : PLAYER_TWO_O;
   boardStore.board[matrixPosition[0]][matrixPosition[1]] = currentPlayer;
-  const winner = calculateWinner(boardStore.board, ...matrixPosition);
+  const winner = boardStore.calculateWinner(
+    boardStore.board,
+    ...matrixPosition
+  );
   if (winner) {
     winnerLine.value = winner.line;
     gameStore.matchWon(winner);

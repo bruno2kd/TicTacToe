@@ -13,7 +13,6 @@ const props = defineProps({
 const rangeInput = ref(props.rangeInput);
 
 watch(rangeInput, () => {
-  console.log("aqui vai");
   emit("updateInput", Number(rangeInput.value));
 });
 </script>
@@ -50,12 +49,18 @@ input[type="range"] {
   cursor: pointer;
   accent-color: currentcolor;
   color: $black;
+  @media screen and (max-width: $mobile-break) {
+    width: 200px;
+  }
 }
 
 datalist {
   display: flex;
   justify-content: space-between;
   width: 300px;
+  @media screen and (max-width: $mobile-break) {
+    width: 200px;
+  }
   option {
     padding: 0;
   }
