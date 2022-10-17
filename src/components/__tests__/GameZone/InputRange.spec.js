@@ -10,7 +10,7 @@ describe("InputRange", () => {
     const wrapper = shallowMount(InputRange, {
       props: { rangeInput },
     });
-    const value = wrapper.find('input').element.value
-    expect(value).toContain(rangeInput)
+    const value = wrapper.find("input").element.value;
+    expect(value).toContain(rangeInput);
   });
 });

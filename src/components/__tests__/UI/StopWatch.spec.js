@@ -10,7 +10,7 @@ describe("StopWatch", () => {
     const wrapper = shallowMount(StopWatch, {
       props: { time },
     });
-    
-    expect(wrapper.text()).toContain(time)
+
+    expect(wrapper.text()).toContain(time);
   });
 });

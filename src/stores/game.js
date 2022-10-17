@@ -38,12 +38,8 @@ export const useGameStore = defineStore("game", () => {
       }
     });
 
-    p1WinsPercentage.value = Math.round(
-      (p1Wins * 100) / seriesHistory.length
-    );
-    p2WinsPercentage.value = Math.round(
-      (p2Wins * 100) / seriesHistory.length
-    );
+    p1WinsPercentage.value = Math.round((p1Wins * 100) / seriesHistory.length);
+    p2WinsPercentage.value = Math.round((p2Wins * 100) / seriesHistory.length);
   };
 
   const nextTurn = () => {

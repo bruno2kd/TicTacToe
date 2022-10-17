@@ -11,7 +11,7 @@ const props = defineProps({
   },
   winnerLine: {
     type: Array,
-    default: []
+    default: () => [],
   },
   cells: {
     type: Number,

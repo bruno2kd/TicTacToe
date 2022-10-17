@@ -22,7 +22,7 @@ describe("calculateWinner 5x", () => {
       [1, 1, 2, null, 1, 2, null],
       [1, null, 1, null, 2, 2, null],
       [1, null, 2, 1, 1, 2, 2],
-      [, null, 2, null, 1, 2, null],
+      [2, null, 2, null, 1, 2, null],
       [1, null, 2, null, 1, 1, 2],
       [1, null, 2, 2, 1, 2, 1],
     ];
@@ -53,7 +53,7 @@ describe("calculateWinner 5x", () => {
       [1, 1, 2, null, 1, 2, 1],
       [1, null, 1, 1, 2, 2, null],
       [1, null, 2, 2, 1, 2, 2],
-      [, null, 2, 1, 1, 2, null],
+      [2, null, 2, 1, 1, 2, null],
       [1, 2, 2, null, 1, 1, 2],
       [2, 1, 1, 2, 1, 2, 1],
     ];
@@ -84,7 +84,7 @@ describe("calculateWinner 5x", () => {
       [1, 1, 1, 1, 1, 1, 1],
       [1, 2, 2, 1, 2, 2, null],
       [1, null, 2, 2, 2, 2, 2],
-      [, null, 2, 1, 1, 2, null],
+      [2, null, 2, 1, 1, 2, null],
       [1, 2, 2, null, 1, 1, 2],
       [2, 1, 1, 2, 1, 2, 1],
     ];
@@ -115,7 +115,7 @@ describe("calculateWinner 5x", () => {
       [1, 1, 1, 1, 1, 2, 1],
       [1, 2, 2, 1, 1, 2, null],
       [1, null, 2, 2, 2, 2, 2],
-      [, null, 2, 1, 1, 2, null],
+      [2, null, 2, 1, 1, 2, null],
       [1, 2, 2, null, 1, 2, 1],
       [2, 1, 1, 2, 1, 2, 1],
     ];

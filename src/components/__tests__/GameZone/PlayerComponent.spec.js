@@ -12,25 +12,24 @@ describe("PlayerComponent", () => {
       props: { player, matchWinsCount },
     });
 
-    const div = wrapper.find('.player')
+    const div = wrapper.find(".player");
     const title = wrapper.find(".player--title");
     const count = wrapper.find(".player--count");
 
     expect(title.text()).toContain(`Player ${player}`);
     expect(count.text()).toContain(matchWinsCount);
-    expect(div.classes()).not.toContain('active')
-
+    expect(div.classes()).not.toContain("active");
   });
 
   it("get players correct turn", () => {
-    const currentTurn = true
+    const currentTurn = true;
     const player = 2;
     const wrapper = shallowMount(PlayerComponent, {
       props: { player, currentTurn },
     });
 
-    const div = wrapper.find('.player')
-    
-    expect(div.classes()).toContain('active')
+    const div = wrapper.find(".player");
+
+    expect(div.classes()).toContain("active");
   });
 });
