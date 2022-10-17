@@ -1,6 +1,11 @@
 <script setup>
 import { getMatrixPosition } from "@/assets/helpers";
 import { computed } from "vue";
+import svgX from '@/assets/images/1.svg'
+import svgO from '@/assets/images/2.svg'
+import svgXWinner from '@/assets/images/1_winner.svg'
+import svgOWinner from '@/assets/images/2_winner.svg'
+
 const props = defineProps({
   index: {
     type: Number,
@@ -18,6 +23,22 @@ const props = defineProps({
     required: true,
   },
 });
+
+const getPlayerSignSVG = computed(() => {
+  if (props.player === 1) {
+    return svgX
+  } else {
+    return svgO
+  }
+})
+
+const getWinnerPlayerSignSVG = computed(() => {
+  if (props.player === 1) {
+    return svgXWinner
+  } else {
+    return svgOWinner
+  }
+})
 
 const isWinnerBox = computed(() => {
   const d = props.cells;
@@ -37,12 +58,12 @@ const isWinnerBox = computed(() => {
       <div v-if="props.player">
         <img
           v-if="!isWinnerBox"
-          :src="`/src/assets/images/${props.player}.svg`"
+          :src="getPlayerSignSVG"
           :alt="props.player"
         />
         <img
           v-else
-          :src="`/src/assets/images/${props.player}_winner.svg`"
+          :src="getWinnerPlayerSignSVG"
           :alt="props.player"
         />
       </div>

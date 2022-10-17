@@ -3,6 +3,9 @@
 Vue3, Pinia, Vite and Vitest
 
 Frontend Challeng following specifications in [Challenge](CHALLENGE.md)
+
+Check it here: [Tic Tac Toe](https://master.d15jzkl752f1pw.amplifyapp.com/)
+
 ## Project Setup
 
 ```sh

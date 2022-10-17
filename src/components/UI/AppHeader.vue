@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <header id="header" :class="{ transparent: isScrollingDown }">
     <div class="container header">
-      <img src="@/assets/images/SWORD_Health_logo.svg" alt="" />
+      <img src="@/assets/images/SWORD_Health_logo.svg" alt="Sword Health" />
       <div class="header__info">
         <p class="bold">Frontend Developer</p>
         <p class="italic">Challenge</p>

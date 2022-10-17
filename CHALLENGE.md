@@ -38,7 +38,7 @@ The goal of this challenge is to create a simple web page where we can play
 In the [Guidelines](CHALLENGE_GUIDELINES/) folder you can find the mockups for the Desktop
 and Mobile versions as well as a color palette to be used.
 
-You can get the necessary images and fonts from the [assets](src/assets/) folder.
+You can get the necessary images and fonts from the [assets](src/assets/images) folder.
 
 The solution is expected to be fully responsive as we wanna play your awesome game
 on our phones during
