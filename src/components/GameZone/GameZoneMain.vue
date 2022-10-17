@@ -20,7 +20,7 @@ const boardStore = useBoardStore();
           <PlayerComponent
             :player="1"
             :currentTurn="gameStore.turn === 1"
-            :turnCount="gameStore.matchesWonByEachPlayer.p1"
+            :matchWinsCount="gameStore.matchesWonByEachPlayer.p1"
           />
         </div>
         <div class="game-zone__game-board">
@@ -30,7 +30,7 @@ const boardStore = useBoardStore();
           <PlayerComponent
             :player="2"
             :currentTurn="gameStore.turn === 2"
-            :turnCount="gameStore.matchesWonByEachPlayer.p2"
+            :matchWinsCount="gameStore.matchesWonByEachPlayer.p2"
           />
         </div>
       </div>
@@ -45,7 +45,7 @@ const boardStore = useBoardStore();
           <PlayerComponent
             :player="1"
             :currentTurn="gameStore.turn === 1"
-            :turnCount="gameStore.matchesWonByEachPlayer.p1"
+            :matchWinsCount="gameStore.matchesWonByEachPlayer.p1"
           />
         </div>
         <GameClock />
@@ -53,7 +53,7 @@ const boardStore = useBoardStore();
           <PlayerComponent
             :player="2"
             :currentTurn="gameStore.turn === 2"
-            :turnCount="gameStore.matchesWonByEachPlayer.p2"
+            :matchWinsCount="gameStore.matchesWonByEachPlayer.p2"
           />
         </div>
       </div>

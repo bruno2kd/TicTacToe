@@ -4,7 +4,7 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  turnCount: {
+  matchWinsCount: {
     type: Number,
     default: 0,
   },
@@ -18,7 +18,7 @@ const props = defineProps({
 <template>
   <div class="player" :class="{ active: props.currentTurn }">
     <p class="player--title">Player {{ player }}</p>
-    <p class="player--count">{{ turnCount }}</p>
+    <p class="player--count">{{ matchWinsCount }}</p>
   </div>
 </template>
 

@@ -12,10 +12,6 @@ export const useBoardStore = defineStore("board", () => {
     [null, null, null],
   ]);
 
-  const updateBoard = (newBoard) => {
-    board.value = newBoard;
-  };
-
   const updateCells = (newCells) => {
     document.getElementById(
       "game-board"
@@ -90,7 +86,6 @@ export const useBoardStore = defineStore("board", () => {
   return {
     cells,
     board,
-    updateBoard,
     updateCells,
     calculateWinner,
   };

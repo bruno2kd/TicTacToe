@@ -97,9 +97,9 @@ onMounted(() => {
     <div id="game-board">
       <TicTacToeBox
         :key="i"
-        v-for="(played, i) in boardStore.board.flat()"
+        v-for="(player, i) in boardStore.board.flat()"
         :index="i"
-        :played="played"
+        :player="player"
         :winnerLine="winnerLine"
         :cells="boardStore.cells"
         @click="makeMove(i)"

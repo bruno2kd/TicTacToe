@@ -26,10 +26,10 @@ export const useGameStore = defineStore("game", () => {
     return scores;
   });
 
-  const winsPercentage = () => {
+  const calculateWinsPercentage = (seriesHistory) => {
     let p1Wins = 0;
     let p2Wins = 0;
-    seriesHistory.value.forEach((winner) => {
+    seriesHistory.forEach((winner) => {
       if (winner === 1) {
         p1Wins++;
       }
@@ -39,10 +39,10 @@ export const useGameStore = defineStore("game", () => {
     });
 
     p1WinsPercentage.value = Math.round(
-      (p1Wins * 100) / seriesHistory.value.length
+      (p1Wins * 100) / seriesHistory.length
     );
     p2WinsPercentage.value = Math.round(
-      (p2Wins * 100) / seriesHistory.value.length
+      (p2Wins * 100) / seriesHistory.length
     );
   };
 
@@ -107,10 +107,10 @@ export const useGameStore = defineStore("game", () => {
       ) {
         return 0; // Draw
       } else {
-        return null; // Draw
+        return null;
       }
     } else {
-      return null;
+      return null; // Keep Playing
     }
   };
 
@@ -124,17 +124,18 @@ export const useGameStore = defineStore("game", () => {
 
   const updateSeriesResults = (seriesResults) => {
     seriesHistory.value.push(seriesResults);
-    winsPercentage();
+    calculateWinsPercentage(seriesHistory.value);
   };
 
   return {
     turn,
     matchPlaysHistory,
     gameHistory,
+    seriesHistory,
     p1WinsPercentage,
     p2WinsPercentage,
     matchesWonByEachPlayer,
-    winsPercentage,
+    calculateWinsPercentage,
     pseudoRandomCoinFlip,
     nextTurn,
     nextMatch,

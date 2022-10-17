@@ -6,11 +6,12 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  played: {
+  player: {
     type: Number,
   },
   winnerLine: {
     type: Array,
+    default: []
   },
   cells: {
     type: Number,
@@ -33,16 +34,16 @@ const isWinnerBox = computed(() => {
 <template>
   <div class="box" :class="{ winner: isWinnerBox }">
     <Transition>
-      <div v-if="props.played">
+      <div v-if="props.player">
         <img
           v-if="!isWinnerBox"
-          :src="`/src/assets/images/${props.played}.svg`"
-          :alt="props.played"
+          :src="`/src/assets/images/${props.player}.svg`"
+          :alt="props.player"
         />
         <img
           v-else
-          :src="`/src/assets/images/${props.played}_winner.svg`"
-          :alt="props.played"
+          :src="`/src/assets/images/${props.player}_winner.svg`"
+          :alt="props.player"
         />
       </div>
     </Transition>
