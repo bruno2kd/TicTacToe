@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from "vue";
+
 import GameIntro from "@/components/GameZone/GameIntro.vue";
 import GameClock from "@/components/GameZone/GameClock.vue";
 import PlayerComponent from "@/components/GameZone/PlayerComponent.vue";
@@ -9,6 +11,14 @@ import { useGameStore } from "@/stores/game";
 import { useBoardStore } from "@/stores/board";
 const gameStore = useGameStore();
 const boardStore = useBoardStore();
+
+const gameBoardRef = ref(null);
+
+const inputUpdated = (newCells) => {
+  // other approach could be create a variable in store and watch changes in component
+  gameBoardRef.value.updateCells(newCells);
+  boardStore.updateCells(newCells);
+};
 </script>
 
 <template>
@@ -24,7 +34,7 @@ const boardStore = useBoardStore();
           />
         </div>
         <div class="game-zone__game-board">
-          <GameBoard />
+          <GameBoard ref="gameBoardRef" />
         </div>
         <div class="game-zone__player--desktop">
           <PlayerComponent
@@ -35,10 +45,7 @@ const boardStore = useBoardStore();
         </div>
       </div>
 
-      <InputRange
-        :rangeInput="boardStore.cells"
-        @updateInput="boardStore.updateCells"
-      />
+      <InputRange :rangeInput="boardStore.cells" @updateInput="inputUpdated" />
 
       <div class="game-zone__clock">
         <div class="game-zone__player--mobile">

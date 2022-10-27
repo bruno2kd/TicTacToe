@@ -1,5 +1,4 @@
 <script setup>
-defineEmits(["onClick"]);
 const props = defineProps({
   class: {
     type: String,
@@ -8,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button class="btn" :class="props.class" @click="$emit('onClick')">
+  <button class="btn" :class="props.class">
     <slot></slot>
   </button>
 </template>

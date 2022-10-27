@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { setActivePinia, createPinia } from "pinia";
 import { useBoardStore } from "@/stores/board";
+import { useGameStore } from "@/stores/game";
 
 describe("calculateWinner 5x", () => {
   beforeEach(() => {
@@ -132,5 +133,59 @@ describe("calculateWinner 5x", () => {
       [5, 5],
       [6, 5],
     ]);
+  });
+
+  it("calculateWinner function draw handling 7x", () => {
+    const boardStore = useBoardStore();
+    const gameStore = useGameStore();
+    gameStore.$patch({
+      matchPlaysHistory: [
+        1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+        1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+      ],
+    });
+    boardStore.$patch({
+      cells: 7,
+    });
+    const board = [
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 1, 1, 1, 1, 2, 1],
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 1, 2, 2, 2, 1, 2],
+      [2, 2, 2, 1, 1, 2, 1],
+      [1, 2, 2, 2, 2, 2, 1],
+      [2, 1, 1, 2, 1, 2, 1],
+    ];
+
+    const result = boardStore.calculateWinner(board, 0, 0);
+
+    expect(result.winner).toBe(0);
+    expect(result.line).toStrictEqual([]);
+  });
+  it("calculateWinner function no winner handling 7x", () => {
+    const boardStore = useBoardStore();
+    const gameStore = useGameStore();
+    gameStore.$patch({
+      matchPlaysHistory: [
+        1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+        1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+      ],
+    });
+    boardStore.$patch({
+      cells: 7,
+    });
+    const board = [
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 1, null, 1, 1, 2, 1],
+      [1, 2, 2, 1, 1, 2, 2],
+      [1, 1, 2, 2, 2, 1, 2],
+      [2, 2, 2, 1, 1, 2, 1],
+      [1, 2, 2, 2, 2, null, 1],
+      [2, 1, 1, 2, 1, 2, 1],
+    ];
+
+    const result = boardStore.calculateWinner(board, 0, 0);
+
+    expect(result).toBe(null);
   });
 });

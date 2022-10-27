@@ -14,3 +14,16 @@ $header-height: 80px;
 $container-max-width: 1140px;
 
 $mobile-break: 859px;
+
+@mixin column-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

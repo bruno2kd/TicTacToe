@@ -16,7 +16,7 @@ const timerStore = useTimerStore();
   @include column-centered;
   padding: 32px 0;
 
-  p {
+  time {
     padding: 12px;
     font-size: 1.2rem;
   }

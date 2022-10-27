@@ -14,9 +14,10 @@ describe("ProfileComponent", () => {
     const wrapper = mount(ProfileComponent);
 
     const divs = wrapper.findAll("div");
-    const divMain = divs.at(0);
-    const divMainInfo = divs.at(1);
-    const divDescription = divs.at(2);
+    const articles = wrapper.findAll("article");
+    const divMainInfo = divs.at(0);
+    const divMain = articles.at(0);
+    const divDescription = articles.at(1);
 
     expect(divMain.classes()).toContain("profile__main");
     expect(divMainInfo.classes()).toContain("profile__main--info");

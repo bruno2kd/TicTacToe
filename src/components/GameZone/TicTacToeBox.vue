@@ -1,10 +1,10 @@
 <script setup>
 import { getMatrixPosition } from "@/assets/helpers";
 import { computed } from "vue";
-import svgX from '@/assets/images/1.svg'
-import svgO from '@/assets/images/2.svg'
-import svgXWinner from '@/assets/images/1_winner.svg'
-import svgOWinner from '@/assets/images/2_winner.svg'
+import svgX from "@/assets/images/1.svg";
+import svgO from "@/assets/images/2.svg";
+import svgXWinner from "@/assets/images/1_winner.svg";
+import svgOWinner from "@/assets/images/2_winner.svg";
 
 const props = defineProps({
   index: {
@@ -26,19 +26,19 @@ const props = defineProps({
 
 const getPlayerSignSVG = computed(() => {
   if (props.player === 1) {
-    return svgX
+    return svgX;
   } else {
-    return svgO
+    return svgO;
   }
-})
+});
 
 const getWinnerPlayerSignSVG = computed(() => {
   if (props.player === 1) {
-    return svgXWinner
+    return svgXWinner;
   } else {
-    return svgOWinner
+    return svgOWinner;
   }
-})
+});
 
 const isWinnerBox = computed(() => {
   const d = props.cells;
@@ -56,16 +56,8 @@ const isWinnerBox = computed(() => {
   <div class="box" :class="{ winner: isWinnerBox }">
     <Transition>
       <div v-if="props.player">
-        <img
-          v-if="!isWinnerBox"
-          :src="getPlayerSignSVG"
-          :alt="props.player"
-        />
-        <img
-          v-else
-          :src="getWinnerPlayerSignSVG"
-          :alt="props.player"
-        />
+        <img v-if="!isWinnerBox" :src="getPlayerSignSVG" :alt="props.player" />
+        <img v-else :src="getWinnerPlayerSignSVG" :alt="props.player" />
       </div>
     </Transition>
   </div>

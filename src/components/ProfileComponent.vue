@@ -1,15 +1,17 @@
 <template>
   <section class="container profile">
-    <div class="profile__main">
-      <img src="@/assets/images/bruno_kern.jpeg" alt="Bruno's Picture" />
+    <article class="profile__main">
+      <figure>
+        <img src="@/assets/images/bruno_kern.jpeg" alt="Bruno's Picture" />
+      </figure>
       <div class="profile__main--info">
         <p class="bold">Bruno Kern</p>
         <p>Location: Porto Alegre, RS</p>
         <p>Country: Brazil</p>
         <p>Occupation: Software Developer</p>
       </div>
-    </div>
-    <div class="profile__description">
+    </article>
+    <article class="profile__description">
       <p>About me:</p>
       <p>
         I am a self-taught qualified professional full stack developer with five
@@ -17,7 +19,7 @@
         great communication skills and analytical capabilities learned on a
         previous academic career.
       </p>
-    </div>
+    </article>
   </section>
 </template>
 

@@ -27,12 +27,4 @@ describe("ButtonComponent", () => {
 
     expect(wrapper.find("button").text()).toContain(text);
   });
-
-  it("click trigger onClick emit", async () => {
-    const wrapper = mount(ButtonComponent);
-
-    await wrapper.find("button").trigger("click");
-
-    expect(wrapper.emitted()).toHaveProperty("onClick");
-  });
 });

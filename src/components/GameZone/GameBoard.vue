@@ -1,7 +1,7 @@
 <script setup>
 import { getMatrixPosition, createMatrix } from "@/assets/helpers";
 import TicTacToeBox from "@/components/GameZone/TicTacToeBox.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineExpose } from "vue";
 import { useTimerStore } from "@/stores/timer";
 import { useGameStore } from "@/stores/game";
 import { useBoardStore } from "@/stores/board";
@@ -17,6 +17,7 @@ const loading = ref(false);
 const gameSeriesEnded = ref(false);
 const gameSeriesEndedMessage = ref("");
 const popUpMessage = ref("");
+const gameBoardStyle = ref(null);
 
 const popUpMatchWon = ref(false);
 const winnerLine = ref([]);
@@ -87,14 +88,24 @@ const startNewGameSeries = () => {
   nextMatch();
 };
 
+const updateCells = (newCells) => {
+  gameBoardStyle.value = {
+    gridTemplate: `repeat(${newCells}, 1fr) / repeat(${newCells}, 1fr)`,
+  };
+};
+
 onMounted(() => {
   gameStore.pseudoRandomCoinFlip();
+});
+
+defineExpose({
+  updateCells,
 });
 </script>
 
 <template>
   <div class="game-area">
-    <div id="game-board">
+    <div id="game-board" :style="gameBoardStyle">
       <TicTacToeBox
         :key="i"
         v-for="(player, i) in boardStore.board.flat()"
@@ -111,7 +122,7 @@ onMounted(() => {
       <div v-if="!gameSeriesEnded" class="game-area__pop-up--match-message">
         <p>{{ popUpMessage }}</p>
 
-        <ButtonComponent @onClick="nextMatch" class="game-area__pop-up--btn">
+        <ButtonComponent @click="nextMatch" class="game-area__pop-up--btn">
           Next Match
         </ButtonComponent>
       </div>
@@ -120,7 +131,7 @@ onMounted(() => {
           {{ gameSeriesEndedMessage }}
         </p>
         <ButtonComponent
-          @onClick="startNewGameSeries"
+          @click="startNewGameSeries"
           class="game-area__pop-up--btn"
         >
           New Series

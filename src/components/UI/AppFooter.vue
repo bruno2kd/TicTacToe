@@ -17,7 +17,7 @@
       </div>
       <div class="footer-list__item">
         <p class="footer-list__item--title">Stay in touch</p>
-        <div class="footer-list__item--img-group">
+        <nav class="footer-list__item--img-group">
           <a
             href="https://www.facebook.com/"
             target="_blank"
@@ -39,7 +39,7 @@
           >
             <img src="@/assets/images/instagram.svg" alt="instagram logo" />
           </a>
-        </div>
+        </nav>
         <div class="footer-list__item--input-group">
           <input type="text" placeholder="Subscribe to our games..." />
           <button>

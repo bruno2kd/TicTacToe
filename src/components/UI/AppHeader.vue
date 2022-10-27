@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const isScrollingDown = ref(false);
 
@@ -13,7 +13,10 @@ const updateScroll = () => {
 };
 
 onMounted(() => {
-  window.addEventListener("scroll", () => updateScroll());
+  window.addEventListener("scroll", updateScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", updateScroll);
 });
 </script>
 

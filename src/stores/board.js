@@ -13,9 +13,6 @@ export const useBoardStore = defineStore("board", () => {
   ]);
 
   const updateCells = (newCells) => {
-    document.getElementById(
-      "game-board"
-    ).style.gridTemplate = `repeat(${newCells}, 1fr) / repeat(${newCells}, 1fr)`;
     board.value = createMatrix(newCells);
     cells.value = newCells;
     gameStore.startNewGameSeries();
